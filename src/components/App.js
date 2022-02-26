@@ -55,6 +55,18 @@ class App extends Component {
       const marketplace = web3.eth.Contract(Marketplace.abi, networkData.address);
       this.setState({ marketplace: marketplace });
 
+      // we'll get productCount here and use it to sequentially fetch each product from the blockchain
+      const productCount = await marketplace.methods.productCount().call(); // `call` here reads an object from contract
+      this.setState({ productCount: productCount });
+
+      // get each product
+      for (var i = 1; i <= productCount; i++) {
+        const product = await marketplace.methods.products(i).call();
+        this.setState({
+          products: [...this.state.products, product]
+        });
+      }
+
       // update loading state after initializing marketplace
       this.setState({ loading: false });
     } else {
@@ -96,7 +108,9 @@ class App extends Component {
               {
                 this.state.loading
                   ? <Loader />
-                  : <Main createProduct={this.createProduct} />
+                  : <Main
+                    products={this.state.products}
+                    createProduct={this.createProduct} />
               }
             </main>
           </div>

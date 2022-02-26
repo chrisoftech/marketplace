@@ -85,6 +85,7 @@ class App extends Component {
 
     // bind createProduct method to react component
     this.createProduct = this.createProduct.bind(this);
+    this.purchaseProduct = this.purchaseProduct.bind(this);
   }
 
   createProduct(name, price) {
@@ -93,6 +94,17 @@ class App extends Component {
 
     // get instance of market from state
     this.state.marketplace.methods.createProduct(name, price).send({ from: this.state.account }).once('receipt', (receipt) => {
+      console.log(receipt);
+      this.setState({ loading: false });
+    });
+  }
+
+  purchaseProduct(id, price) {
+    // set loading state
+    this.setState({ loading: true });
+
+    // get instance of market from state
+    this.state.marketplace.methods.purchaseProduct(id).send({ from: this.state.account, value: price }).once('receipt', (receipt) => {
       console.log(receipt);
       this.setState({ loading: false });
     });
@@ -110,7 +122,8 @@ class App extends Component {
                   ? <Loader />
                   : <Main
                     products={this.state.products}
-                    createProduct={this.createProduct} />
+                    createProduct={this.createProduct}
+                    purchaseProduct={this.purchaseProduct} />
               }
             </main>
           </div>

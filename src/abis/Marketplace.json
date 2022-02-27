@@ -5610,6 +5610,12 @@
       "links": {},
       "address": "0x113F5FF01B49b68036fb93A621072e0Bfe6F794F",
       "transactionHash": "0xbfa8597a88189cfba8243c379e68c3a3c3f94766ec456d441674d5f0bd9b99a9"
+    },
+    "42": {
+      "events": {},
+      "links": {},
+      "address": "0x494F11648806dc0F3f3c6fF2AA426cDf0234f69C",
+      "transactionHash": "0x09b010bdf3df00157f2a4dc80c1d38658135b14e760f5d11201aa08a4d863759"
     }
   },
   "schemaVersion": "3.4.5",
